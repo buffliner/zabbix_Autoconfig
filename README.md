@@ -16,4 +16,4 @@
 
 **Дата:** 08.11.2024
 
-**Авторы:** https://github.com/QuadDarv1ne https://github.com/buffliner
+**Авторы:** https://github.com/QuadDarv1ne \nhttps://github.com/buffliner
