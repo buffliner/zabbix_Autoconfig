@@ -1,6 +1,7 @@
 #include "utils.h"
 #include <iostream>
 #include <iomanip>   // Для setw
+#include <cstdlib>
 
 using namespace std;
 
@@ -40,4 +41,44 @@ void printOSTable() {
     cout << "+-----------------------+" << endl;
     cout << "| 3 | Windows           |" << endl;
     cout << "+-----------------------+" << endl;
+}
+
+void install_and_configure_agent_debian() {
+    // Загрузка пакета zabbix-release
+    if (system("wget https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest+debian12_all.deb") != 0) {
+        cerr << "Ошибка при загрузке пакета Zabbix" << endl;
+        exit(1);
+    }
+
+    // Установка загруженного пакета
+    if (system("sudo dpkg -i zabbix-release_latest+debian12_all.deb") != 0) {
+        cerr << "Ошибка при установке пакета zabbix-release" << endl;
+        exit(1);
+    }
+
+    // Обновление списка пакетов
+    if (system("sudo apt update") != 0) {
+        cerr << "Ошибка при обновлении списка пакетов" << endl;
+        exit(1);
+    }
+
+    // Установка Zabbix Agent
+    if (system("sudo apt install -y zabbix-agent") != 0) {
+        cerr << "Ошибка при установке Zabbix Agent" << endl;
+        exit(1);
+    }
+
+    // Перезапуск службы Zabbix Agent
+    if (system("sudo systemctl restart zabbix-agent") != 0) {
+        cerr << "Ошибка при перезапуске службы Zabbix Agent" << endl;
+        exit(1);
+    }
+
+    // Включение автозапуска Zabbix Agent при старте системы
+    if (system("sudo systemctl enable zabbix-agent") != 0) {
+        cerr << "Ошибка при включении автозапуска Zabbix Agent" << endl;
+        exit(1);
+    }
+
+    cout << "Zabbix Agent успешно установлен и настроен." << endl;
 }

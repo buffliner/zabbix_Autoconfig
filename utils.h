@@ -25,4 +25,6 @@ void writeLog(std::ofstream &logFile, const std::string &message);
 // Функция для красивого вывода таблицы выбора ОС
 void printOSTable();
 
+// Функция для установки агента на Debian
+void install_and_configure_agent_debian();
 #endif // UTILS_H
