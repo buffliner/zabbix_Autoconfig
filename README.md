@@ -30,6 +30,8 @@
 ### Поддерживаемые платформы
 1. Linux (Debian/Ubuntu)
 
+![image](https://github.com/user-attachments/assets/948da8ca-db0d-4ba3-90d3-342c4036420f)
+
 **Дата:** 08.11.2024
 
 **Авторы:** 
