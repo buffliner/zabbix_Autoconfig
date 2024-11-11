@@ -11,8 +11,8 @@ using namespace std;
 struct passwdData {
     string pw_name;     // Username
     string pw_passwd;   // Password (может быть пустым или зашифрованным в зависимости от системы)
-    uid_t pw_uid;            // User ID
-    gid_t pw_gid;            // Group ID
+    uid_t pw_uid;       // User ID
+    gid_t pw_gid;       // Group ID
     string pw_dir;      // Home directory
 };
 
@@ -27,4 +27,7 @@ void printOSTable();
 
 // Функция для установки агента на Debian
 void install_and_configure_agent_debian();
+
+// Function for updating server address
+bool updateServerValue(const string &fileName, const string &serverValue);
 #endif // UTILS_H

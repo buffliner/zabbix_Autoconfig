@@ -82,3 +82,40 @@ void install_and_configure_agent_debian() {
 
     cout << "Zabbix Agent успешно установлен и настроен." << endl;
 }
+
+bool updateServerValue(const string &fileName, const string &serverValue) {
+	ifstream configFile(fileName);
+	if (!configFile.is_open()) {
+		cerr << "Unable to open file " << fileName << endl;
+		return false;
+	}
+	
+	string line;
+	string updatedContent;
+	bool serverFound = false;
+
+	while (getline(configFile, line)) {
+		if (line.rfind("Server=", 0) == 0) {
+			line = "Server=" + serverValue;
+			serverFound = true;
+		}
+		updatedContent += line + "\n";
+	}
+	configFile.close();
+	
+	if (!serverFound) {
+		cerr << "Value Server not found." << endl;
+		return false;
+	}
+
+	ofstream outFile(fileName);
+	if (!outFile.is_open()) {
+		cerr << "Cannot open file for writing: " << fileName << endl;
+		return false;
+	}
+	outFile << updatedContent;
+	outFile.close();
+
+	cout << "Value of Server updated: " << serverValue << endl;
+	return true;
+}
