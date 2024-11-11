@@ -27,4 +27,7 @@ void printOSTable();
 
 // Функция для установки агента на Debian
 void install_and_configure_agent_debian();
+
+// Function for updating server address
+bool updateServerValue(const string &fileName, const string &serverValue);
 #endif // UTILS_H

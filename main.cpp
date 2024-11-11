@@ -6,6 +6,10 @@
 using namespace std;
 
 int main() {
+    if (getuid() != 0) {
+	cerr << "Error: This programm must be run as root or sudo!" << endl;
+	return 1;
+    }
     // Открываем файл для записи логов
     ofstream logFile("logs.txt");
     if (!logFile.is_open()) {
@@ -83,6 +87,19 @@ int main() {
                 writeLog(logFile, "Invalid OS selection");
                 break;
         }
+	string fileName = "/etc/zabbix/zabbix_agentd.conf";
+	string serverValue;
+	cout << "\nEnter new value for server: ";
+	cin.ignore();
+	getline(cin, serverValue);
+
+	if (updateServerValue(fileName, serverValue)) {
+		cout << "Value of Server updated successfully: " << serverValue << endl;
+		writeLog(logFile, "Server Parameter updated to " + serverValue);
+	} else {
+		cerr << "Failed to update Server parameter." << endl;
+		writeLog(logFile, "Failed to updated Server parameter.");
+	}
     }
 
     // Закрываем файл логов после записи
