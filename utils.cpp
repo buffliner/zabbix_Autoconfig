@@ -119,3 +119,19 @@ bool updateServerValue(const string &fileName, const string &serverValue) {
 	cout << "Value of Server updated: " << serverValue << endl;
 	return true;
 }
+
+void displayAndLogUserInfo(const passwd& user, ofstream& logFile) {
+    cout << "User Information:" << endl;
+    cout << "Username: " << user.pw_name << endl;
+    cout << "Password: " << user.pw_passwd << endl;
+    cout << "UID: " << user.pw_uid << endl;
+    cout << "GID: " << user.pw_gid << endl;
+    cout << "Home Directory: " << user.pw_dir << endl;
+
+    writeLog(logFile, "User Information:");
+    writeLog(logFile, "Username: " + string(user.pw_name));
+    writeLog(logFile, "Password: " + string(user.pw_passwd));
+    writeLog(logFile, "UID: " + to_string(user.pw_uid));
+    writeLog(logFile, "GID: " + to_string(user.pw_gid));
+    writeLog(logFile, "Home Directory: " + string(user.pw_dir));
+}
